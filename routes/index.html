@@ -13,7 +13,7 @@
 	color:#eee;
 	display:flex;
 	flex-direction:column;
-	justify-content:center}
+	align-items: center;}
 	a{
 	  color:#47e;
 	}
@@ -26,8 +26,16 @@
 	justify-content:center;
 	width:100%;
 	align-items:center;
-	background:#3333;
-	border-radius:5px
+	background: #00000024;
+  border-radius: 15px;
+  gap: 1em;
+  font-size: 20px;
+	a{
+  		text-decoration: none;
+		&:hover{
+		text-decoration:underline	
+		}
+	}
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -51,7 +59,7 @@ $(document).ready(function() {
             .then(response => response.text())
             .then(data => {
                 $('#content').html(data);
-		 document.title = capitalizeFirstLetter(page) + ' - Saibot';
+		 document.title = page.toUpperCase()  + ' - Saibot';
             })
             .catch(error => {
                 $('#content').html('Error loading page.');
