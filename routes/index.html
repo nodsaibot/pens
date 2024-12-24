@@ -24,8 +24,7 @@
 	}
 	nav{
 	display:flex;
-	justify-content:center;
-	
+	justify-content:center;	
 	align-items:center;
 	background: #00000024;
  	 border-radius: 15px;
@@ -39,6 +38,25 @@
 		}
 	  }
 	}
+#shareBar { 
+    padding: 1em;
+    text-align: center;
+	max-width:800px;
+	width:100%;
+}
+
+.share-link {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #eee;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    border-radius: 9px;
+}
+
+.share-link:hover {
+    background: #7ef;
+}	
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -51,6 +69,12 @@
     <a href="#" data-page="contact">Contact</a>
 </nav>
 <div id="content"></div>
+ <div id="shareBar">
+    <a href="#" class="share-link" data-network="twitter">Twitter</a>
+    <a href="#" class="share-link" data-network="facebook">Facebook</a>
+    <a href="#" class="share-link" data-network="linkedin">LinkedIn</a>
+    <!-- Add more networks as needed -->
+</div>
 <script>
 $(document).ready(function() {
      function loadContent(page) {
@@ -89,6 +113,30 @@ $(document).ready(function() {
     $(window).on('popstate', function(event) {
         if (event.originalEvent.state && event.originalEvent.state.page) {
             loadContent(event.originalEvent.state.page);
+        }
+    });
+
+
+
+	$('#shareBar .share-link').on('click', function(e) {
+        e.preventDefault();
+        var network = $(this).data('network');
+        var url = encodeURIComponent(window.location.href);
+        var title = encodeURIComponent(document.title);
+        
+        switch(network) {
+            case 'twitter':
+                window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + title, '_blank');
+                break;
+            case 'facebook':
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+                break;
+            case 'linkedin':
+                window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + title, '_blank');
+                break;
+            // Add more cases for additional networks
+            default:
+                console.log('Network not supported: ' + network);
         }
     });
 });
